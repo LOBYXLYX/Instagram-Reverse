@@ -72,9 +72,6 @@ print(machine_id())
 import math
 import random
 
-def random_uint32():
-    return math.floor(random.random() * 4294967296)
-
 def to_string(n):
     chars = '0123456789abcdefghijklmnopqrstuvwxyz'
     result = ''

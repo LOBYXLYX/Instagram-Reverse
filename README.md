@@ -84,7 +84,7 @@ def to_string(n):
 def web_session_id(extra=False, c=None):
     def _p(j=6):
         a = math.floor(random.random() * 2176782336)
-        a = Reverse.to_string(a)
+        a = to_string(a)
         return '0' * (j - len(a)) + a
 
     if extra:

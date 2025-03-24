@@ -36,7 +36,7 @@ It will result in the password:
 ***Note*** The keyid and publickey are not static, change from time to time. They are obtained by scraping the HTML of the Instagram page.
 
 
-# Instagram Headers/Payload Values (reversed.py)
+## Instagram Headers/Payload Values (reversed.py)
 ### X-Mid Header Generation
 ```python
 import math

@@ -1,9 +1,9 @@
 # Reverse Engineering Instagram
 
-## Password Encryption
+## Password Encryption (pwd_encoder.js)
 ### Parameters
 - Instagram Encryption Key ID
-- Instagram Encription Public Key
+- Instagram Encryption Public Key
 - Password to encrypt
 - Concurrent timestamp (with 10 digits)
 - Instagram Encryption Version (10 for encryption)
@@ -33,9 +33,10 @@ It will result in the password:
 ```
 #PWD_INSTAGRAM_BROWSER:10:1742679434:AZ1QAC1dEJegrbNAYcDn7aPPzXcnIfO5x2mhi9Ad0Ax45eYKn45W88XlhGm95iwIt10Y5bvdd+ceEjSj4etqaILHLpraxojNY4nIn13Sdggc7oYjv5y5n/9KIzrNgThBBZ9BxTEN7r1ZuWhXrOd6p4yvKbT8dQ==
 ```
+***Note*** The keyid and publickey are not static, change from time to time. They are obtained by scraping the HTML of the Instagram page.
 
 
-# Instagram Headers/Payload Values
+# Instagram Headers/Payload Values (reversed.py)
 ### X-Mid Header Generation
 ```python
 import math
@@ -62,7 +63,8 @@ def machine_id():
 ```
 ```python
 print(machine_id())
-# result: 1olgdc41oa6xbd5hetz5agulv79tei931on7kdg1i9jnzz1pgez3y
+# result:
+# 1olgdc41oa6xbd5hetz5agulv79tei931on7kdg1i9jnzz1pgez3y
 ```
 
 ### X-Web-Session-ID
@@ -103,5 +105,26 @@ print(sid)
 # ::1p7dm3
 
 print(web_session_id(extra=True, c=sid.split(':')[2]))
-# lejnny:v14jyj:qtknek
+# lejnny:v14jyj:1p7dm3
 ```
+
+### Jazoest Payload Parameter
+- This value takes a string and represents it as a number
+
+```python
+def get_numeric_value(string):
+    c = 0
+    sprinkle_version = '2'
+
+    for x in range(len(string)):
+        c += ord(string[x])
+    return sprinkle_version + str(c)
+```
+```python
+jazoest = get_numeric_value('csrf_token') # for signup
+
+print(jazoest)
+# result:
+# 21070
+```
+
